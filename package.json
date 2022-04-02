@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-better-max-params",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Set a max param number for your constructors, functions, methods etc.",
   "keywords": [
     "eslint",
