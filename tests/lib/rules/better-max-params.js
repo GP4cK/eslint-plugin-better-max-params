@@ -22,15 +22,15 @@ ruleTester.run("better-max-params", rule, {
     "function test(d, e, f, g) {}",
     { code: "var test = function(a, b, c) {};", options: [{ func: 3 }] },
     { code: "var test = function(a, b, c) {};", options: [{ func: 3, constructor: 2 }] },
-    { code: "var test = (a, b, c) => {};", options: [{ func: 3}], parserOptions: { ecmaVersion: 6 } },
-    { code: "var test = function test(a, b, c) {};", options: [{ func: 3}] },
-    { code: "class Test { constructor(a, b, c) {} }", options: [{ func: 2, constructor: 3 }], parserOptions: { ecmaVersion: 6 } },
+    { code: "var test = (a, b, c) => {};", options: [{ func: 3 }], languageOptions: { ecmaVersion: 6 } },
+    { code: "var test = function test(a, b, c) {};", options: [{ func: 3 }] },
+    { code: "class Test { constructor(a, b, c) {} }", options: [{ func: 2, constructor: 3 }], languageOptions: { ecmaVersion: 6 } },
   ],
 
   invalid: [
     {
       code: "function test(a, b, c) {}",
-      options: [{ func: 2}],
+      options: [{ func: 2 }],
       errors: [{
         messageId: "exceed",
         data: { name: "Function 'test'", count: 3, max: 2.0 },
@@ -39,7 +39,7 @@ ruleTester.run("better-max-params", rule, {
     },
     {
       code: "function test(a, b, c, d) {}",
-      options: [{ func: 3}],
+      options: [{ func: 3 }],
       errors: [{
         messageId: "exceed",
         data: { name: "Function 'test'", count: 4, max: 3.0 },
@@ -48,7 +48,7 @@ ruleTester.run("better-max-params", rule, {
     },
     {
       code: "var test = function(a, b, c, d) {};",
-      options: [{ func: 3}],
+      options: [{ func: 3 }],
       errors: [{
         messageId: "exceed",
         data: { name: "Function", count: 4, max: 3.0 },
@@ -57,8 +57,8 @@ ruleTester.run("better-max-params", rule, {
     },
     {
       code: "var test = (a, b, c, d) => {};",
-      options: [{ func: 3}],
-      parserOptions: { ecmaVersion: 6 },
+      options: [{ func: 3 }],
+      languageOptions: { ecmaVersion: 6 },
       errors: [{
         messageId: "exceed",
         data: { name: "Arrow function", count: 4, max: 3.0 },
@@ -67,7 +67,7 @@ ruleTester.run("better-max-params", rule, {
     },
     {
       code: "(function(a, b, c, d) {});",
-      options: [{ func: 3}],
+      options: [{ func: 3 }],
       errors: [{
         messageId: "exceed",
         data: { name: "Function", count: 4, max: 3.0 },
@@ -76,7 +76,7 @@ ruleTester.run("better-max-params", rule, {
     },
     {
       code: "var test = function test(a, b, c) {};",
-      options: [{ func: 1}],
+      options: [{ func: 1 }],
       errors: [{
         messageId: "exceed",
         data: { name: "Function 'test'", count: 3, max: 1.0 },
@@ -86,7 +86,7 @@ ruleTester.run("better-max-params", rule, {
     {
       code: "class Test { constructor(a, b, c) {} }",
       options: [{ func: 4, constructor: 2 }],
-      parserOptions: { ecmaVersion: 6 },
+      languageOptions: { ecmaVersion: 6 },
       errors: [{
         messageId: "exceed",
         data: { name: "Constructor", count: 3, max: 2 },
@@ -99,7 +99,7 @@ ruleTester.run("better-max-params", rule, {
         wrongMethod(a, b, c, d, e) {}
       }`,
       options: [{ func: 2, constructor: 3 }],
-      parserOptions: { ecmaVersion: 6 },
+      languageOptions: { ecmaVersion: 6 },
       errors: [{
         messageId: "exceed",
         data: { name: "Method 'wrongMethod'", count: 5, max: 2 },
@@ -112,8 +112,9 @@ ruleTester.run("better-max-params", rule, {
       code: `function test(a, b, c) {
         // Just to make it longer
       }`,
-      options: [{ func: 2}],
+      options: [{ func: 2 }],
       errors: [{
+        messageId: "exceed",
         line: 1,
         column: 1,
         endLine: 1,
